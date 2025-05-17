@@ -8,21 +8,23 @@ terraform {
   }
 }
 provider "aws" {
-  region = "us-east-1"
+  region = "var.region"
 access_key = var.access_key
 secret_key = var.secret_key
 }
-#app-instance
+variable "region" {
+  default = "us-east-1"
+}
+variable "ami_id" {
+  default = "ami-084568db4383264d4"
+}
+variable "ins_type" {
+  default = "t2-micro"
+}
 resource "aws_instance" "appec2" {
-  ami           =  "mi-084568db4383264d4"
-  instance_type = "t2-micro"
-  count = 2
-
+  ami           =  var.ami_id
+  instance_type = var.inst_type
 tags = {
-    Name = "app-instance $(count.index+!)"
+    Name = "app-instance"
 }
-}
-
-output "my_ip" {
-  value = aws_instance.myinstance.public_ip
 }
