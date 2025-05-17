@@ -23,7 +23,7 @@ variable "ins_type" {
 }
 resource "aws_instance" "appec2" {
   ami           =  var.ami_id
-  instance_type = var.inst_type
+  instance_type = var.ins_type
 tags = {
     Name = "app-instance"
 }
